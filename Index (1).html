@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moon Story</title>
+    <style>
+        body { margin: 0; background: #000; color: #fff; font-family: 'Arial', sans-serif; height: 100vh; display: flex; justify-content: center; align-items: center; overflow: hidden; }
+        .screen { display: none; text-align: center; width: 80%; }
+        #screen1 { display: flex; flex-direction: column; align-items: center; }
+        
+        /* Moon Breaking Animation */
+        .moon-wrapper { font-size: 100px; cursor: pointer; transition: 0.5s; }
+        .broken-moon { animation: breakMoon 1s forwards; }
+        @keyframes breakMoon { 0% { transform: scale(1); } 50% { transform: scale(1.2) rotate(20deg); } 100% { opacity: 0; transform: scale(0); } }
+
+        /* Stylish Buttons */
+        .btn { background: linear-gradient(to right, #ff416c, #ff4b2b); border: none; color: white; padding: 15px 30px; border-radius: 50px; cursor: pointer; font-size: 18px; margin-top: 20px; box-shadow: 0 4px 15px rgba(255, 75, 43, 0.4); }
+
+        /* Heart Breaking */
+        .heart { font-size: 100px; cursor: pointer; transition: 0.3s; }
+        .heart-shatter { animation: shatter 1s forwards; }
+        @keyframes shatter { 0% { transform: scale(1); } 100% { transform: scale(0); opacity: 0; } }
+
+        /* Bear Styling */
+        .bear { font-size: 150px; margin-bottom: 20px; animation: bounce 2s infinite; }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+    </style>
+</head>
+<body>
+
+    <div id="screen1" class="screen" style="display: flex;">
+        <div id="moon" class="moon-wrapper" onclick="breakMoon()">🌕</div>
+    </div>
+
+    <div id="screen3" class="screen"><h1 style="font-size: 2rem; font-style: italic;">"Some stories should never be opened..."</h1></div>
+    
+    <div id="screen4" class="screen">
+        <input type="password" id="pass" placeholder="Enter Password" style="padding: 15px; border-radius: 25px; border:none; text-align:center; width: 80%;">
+        <br><button class="btn" onclick="checkPass()">Submit</button>
+    </div>
+
+    <div id="screen5" class="screen"><h1>⚠️ Kripya chutiye is se dur rahe.</h1><button class="btn" onclick="show('screen6')">Continue</button></div>
+    
+    <div id="screen6" class="screen">
+        <h1>Do you want to continue?</h1>
+        <button class="btn" onclick="show('screen7')">Yes</button>
+        <button class="btn" onclick="show('noScreen')" style="background: #333;">No</button>
+    </div>
+
+    <div id="screen7" class="screen"><div id="heart" class="heart" onclick="tapHeart()">🖕</div><p>Tap 3 times</p></div>
+    
+    <div id="screen9" class="screen">
+        <div class="joker">🤡</div>
+        <h1>...🤡Lola Le bete 🤡</h1>
+        <button class="btn" onclick="show('screen10')">Continue</button>
+    </div>
+
+    <div id="screen10" class="screen"><h1>⚠️ Main dubara bol raha hu chutiyeis se dur rahe .</h1><button class="btn" onclick="show('screen11')">Continue</button></div>
+    <div id="screen11" class="screen"><h1>✨ Chal aab Ghar pe ja chutiye </div>
+    <div id="noScreen" class="screen" style="background: red; height: 100%; width: 100%;"><h1 style="font-size: 3rem;">...YOU ARE SAFE...</h1></div>
+
+    <script>
+        let taps = 0;
+        function show(id) {
+            document.querySelectorAll('.screen').forEach(s => s.style.display = 'none');
+            document.getElementById(id).style.display = 'flex';
+            document.getElementById(id).style.flexDirection = 'column';
+            document.getElementById(id).style.alignItems = 'center';
+            document.getElementById(id).style.justifyContent = 'center';
+        }
+        function breakMoon() {
+            document.getElementById('moon').classList.add('broken-moon');
+            setTimeout(() => show('screen3'), 1000);
+            setTimeout(() => show('screen4'), 4000);
+        }
+        function checkPass() {
+            if(document.getElementById('pass').value === "123") show('screen5');
+            else alert("aap chutiye ho !");
+        }
+        function tapHeart() {
+            taps++;
+            if(taps === 3) {
+                document.getElementById('heart').classList.add('heart-shatter');
+                setTimeout(() => show('screen9'), 1000);
+            }
+        }
+    </script>
+</body>
+</html>
